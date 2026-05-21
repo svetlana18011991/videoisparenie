@@ -1,1 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выпаривание раствора</title>
+    <style>
+        body {
+            background-color: #1a1a24;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
 
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+            cursor: pointer;
+            background-color: #000;
+        }
+
+        video {
+            width: 100%;
+            display: block;
+        }
+
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 107, 0, 0.9);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            font-size: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 8px; /* Выравнивание треугольника */
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.6);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .video-container:hover .play-btn {
+            background-color: rgba(255, 133, 51, 1);
+            box-shadow: 0 0 30px rgba(255, 107, 0, 0.9);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-container" id="videoContainer">
+        <video id="myVideo" src="mp_.mp4" preload="auto" playsinline></video>
+        
+        <button class="play-btn" id="playBtn">▶</button>
+    </div>
+
+    <script>
+        const video = document.getElementById('myVideo');
+        const playBtn = document.getElementById('playBtn');
+        const container = document.getElementById('videoContainer');
+
+        // Управление воспроизведением по клику на область видео
+        container.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playBtn.classList.add('hidden');
+            } else {
+                video.pause();
+                playBtn.classList.remove('hidden');
+            }
+        });
+
+        // Возвращаем кнопку, когда видео заканчивается
+        video.addEventListener('ended', () => {
+            playBtn.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
